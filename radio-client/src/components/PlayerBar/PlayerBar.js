@@ -1,16 +1,11 @@
 import React, { Component } from "react";
 import { Howl } from "howler";
+import "./PlayerBar.css";
+import stations from "../../Stations/Station";
 export default class PlayerBar extends Component {
   state = { isPlaying: false, isMuted: false };
-  stations = {
-    src:
-      "https://prod-54-82-58-142.wostreaming.net/sbsystems-wskqfmaac-imc1?session-id=f8267be2ab9d9e9d13f394d0ec8e9984&c_yob=1994&c_gender=m&source=TuneIn",
-    freq: "97.9",
-    title: "La Mega"
-  };
-
   sound = new Howl({
-    src: this.stations.src,
+    src: stations[0].src,
     format: ["mp3", "acc"],
     html5: true,
     onplay: soundId => {
@@ -24,7 +19,7 @@ export default class PlayerBar extends Component {
     }
   });
   soundId = null;
-  listenToRadio = () => {
+  playRadio = () => {
     this.soundId = this.sound.play();
   };
 
@@ -40,6 +35,18 @@ export default class PlayerBar extends Component {
     }
   };
   render() {
-    return <div>player bar</div>;
+    return (
+      <div>
+        <button className="bar-button" onClick={this.playRadio}>
+          play
+        </button>
+        <button className="bar-button" onClick={this.stopRadio}>
+          stop
+        </button>
+        <button className="bar-button" onClick={this.muteAndUnmuteRadio}>
+          mute
+        </button>
+      </div>
+    );
   }
 }
