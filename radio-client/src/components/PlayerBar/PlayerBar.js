@@ -15,23 +15,29 @@ export default class PlayerBar extends Component {
       this.setState({ isPlaying: false });
     },
     onmute: soundId => {
-      this.setState({ isMuted: true });
+      this.setState({ isMuted: !this.state.isMuted });
     }
   });
   soundId = null;
   playRadio = () => {
-    this.soundId = this.sound.play();
+    if (!this.sound.playing(this.soundId)) {
+      this.soundId = this.sound.play();
+    }
   };
 
   stopRadio = () => {
-    this.sound.stop(this.soundId);
+    if (this.sound.playing(this.soundId)) {
+      this.sound.stop(this.soundId);
+    }
   };
 
   muteAndUnmuteRadio = () => {
-    if (this.state.isMuted) {
-      this.sound.mute(false, this.soundId);
-    } else {
-      this.sound.mute(true, this.soundId);
+    if (this.sound.playing(this.soundId)) {
+      if (this.state.isMuted) {
+        this.sound.mute(false, this.soundId);
+      } else {
+        this.sound.mute(true, this.soundId);
+      }
     }
   };
   render() {
