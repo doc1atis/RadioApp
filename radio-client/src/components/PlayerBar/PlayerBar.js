@@ -66,18 +66,31 @@ export default class PlayerBar extends Component {
         <div style={styles.centerSection}>
           {this.state.isPlaying ?
           <>
-            <img src={pauseButton} style={styles.centerImg} onClick={this.stopRadio} alt="Play radio button" />
+            <img src={pauseButton} style={styles.buttonImg} onClick={this.stopRadio} alt="Play radio button" />
             <p style={{ margin: '1vh 0 1vh 0' }}>Click PAUSE to take a break</p>
           </>
           :
           <>
-            <img src={playButton} style={styles.centerImg} onClick={this.playRadio} alt="Play radio button" />
+            <img src={playButton} style={styles.buttonImg} onClick={this.playRadio} alt="Play radio button" />
             <p style={{margin:'1vh 0 1vh 0'}}>Click PLAY to jam out!</p>
           </>
         }
         </div>
         <div style={styles.rightSection}>
-          
+          {/* Mute button display */}
+          {this.state.isMuted ?
+          <>
+            <img src={unmuteButton} style={styles.buttonImg} alt="Unmute radio button" />
+          </>
+          :
+          <>
+            <img src={muteButton} style={styles.buttonImg} alt="Mute radio button" />
+          </>
+          }
+
+
+          {/* Favorite Button Display */}
+          <img src={favoriteAdd} style={styles.buttonImg} alt="Herat button that adds station to favorite list" />
         </div>
       </div>
     );
@@ -109,13 +122,13 @@ const styles = {
   },
   rightSection: {
     display: 'flex',
-    flexDirection: 'column',
     alignItems: 'center',
-    justifyConten: 'center',
+    justifyContent: 'center',
     gridArea: '1 / 3 / span 1 / span 1'
   },
-  centerImg: {
+  buttonImg: {
     height: '50%',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    margin: '0 3vw 0 3vw'
   }
 }
