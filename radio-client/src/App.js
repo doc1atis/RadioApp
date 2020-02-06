@@ -1,12 +1,12 @@
 import React from "react";
 import PlayerBar from "./components/PlayerBar/PlayerBar";
-import Navbar from "./components/Navbar/NavBar";
+import NavBar from "./components/NavBar/NavBar";
 import Body from "./components/Body/Body";
 
 function App() {
   return (
     <div className="App">
-      <Navbar />
+      <NavBar />
       <Body />
       <PlayerBar />
     </div>
