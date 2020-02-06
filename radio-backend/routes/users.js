@@ -1,9 +1,18 @@
-var express = require('express');
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
+const protectWith = require("../passportAuth/passportConfig");
+const userController = require("../controllers/userController");
+router.post("/register", userController.register);
+router.post("/login", protectWith("local"), userController.login);
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+router.post(
+  "/favorites",
+  protectWith("jwt"),
+  userController.addStationToFavorite
+);
+
+router.delete("/favorites/:id", protectWith("jwt"), (req, res) => {
+  res.send("favorite deleted");
 });
 
 module.exports = router;
