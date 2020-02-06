@@ -1,6 +1,6 @@
 import React from "react";
 import PlayerBar from "./components/PlayerBar/PlayerBar";
-import NavBar from './components/NavBar/Navbar';
+import NavBar from './components/NavBar/NavBar';
 import Body from './components/Body/Body';
 
 function App() {
