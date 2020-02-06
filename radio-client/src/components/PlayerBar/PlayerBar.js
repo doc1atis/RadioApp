@@ -4,6 +4,10 @@ import "./PlayerBar.css";
 import stations from "../../Stations/Station";
 import playButton from './playButton.png';
 import pauseButton from './pauseButton.png';
+import muteButton from './muteButton.png';
+import unmuteButton from './unmuteButton.png';
+import favoriteAdd from './favoriteAdd.png';
+import favoriteRemove from './favoriteRemove.png';
 
 
 export default class PlayerBar extends Component {
@@ -73,7 +77,7 @@ export default class PlayerBar extends Component {
         }
         </div>
         <div style={styles.rightSection}>
-          right
+          
         </div>
       </div>
     );
@@ -106,6 +110,8 @@ const styles = {
   rightSection: {
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'center',
+    justifyConten: 'center',
     gridArea: '1 / 3 / span 1 / span 1'
   },
   centerImg: {
