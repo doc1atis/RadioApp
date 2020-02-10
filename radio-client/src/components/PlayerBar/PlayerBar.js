@@ -1,25 +1,27 @@
 import React, { Component } from "react";
 import { Howl } from "howler";
 import "./PlayerBar.css";
-import stations from "../../Stations/Station";
 import playButton from "./playButton.png";
 import pauseButton from "./pauseButton.png";
 import muteButton from "./muteButton.png";
 import unmuteButton from "./unmuteButton.png";
 import favoriteAdd from "./favoriteAdd.png";
 import favoriteRemove from "./favoriteRemove.png";
-
+import Context from "../../Context/Context";
+import stations from "../../Stations/Station";
 export default class PlayerBar extends Component {
+  static contextType = Context;
   state = {
     isPlaying: false,
-    isMuted: false
+    isMuted: false,
+    currentStation: this.context.currentStation
   };
-  soundId = null;
+  soundId = 1001;
   sound = new Howl({
-    src: stations[0].src,
+    src: stations[this.context.currentStation].src,
     format: ["mp3", "acc"],
     html5: true,
-    autoplay: true,
+    autoplay: false,
     onplay: soundId => {
       // fire when the sound start playing
       this.soundId = soundId;
@@ -57,6 +59,11 @@ export default class PlayerBar extends Component {
   };
 
   render() {
+    console.log(
+      "the context current station is: ",
+      this.context.currentStation
+    );
+    console.log("the state current station is: ", this.state.currentStation);
     return (
       <div style={styles.main}>
         <div style={styles.leftSection}>left</div>
