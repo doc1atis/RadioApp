@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
-import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from 'react-icons/fa';
-import Context from '../../Context/Context';
+import React, { Component } from "react"
+import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
+import Context from "../../Context/Context";
+import StationSidebar from "./StationSidebar";
 
 export default class Body extends Component {
 
@@ -12,7 +13,6 @@ export default class Body extends Component {
     
     static contextType = Context;
     render() {
-        console.log(this.context);
         return (
             <div style={styles.main}>
                 <div style={styles.centerArea}>
@@ -25,6 +25,14 @@ export default class Body extends Component {
                     <div style={styles.centerAreaRight}>
                         <FaArrowAltCircleRight size={48} />
                     </div>
+                </div>
+
+                <div style={styles.rightArea}>
+                    {
+                        this.context.stations.map((item, i) => {
+                            return <StationSidebar station={item} key={i} />
+                        })
+                    }
                 </div>
             </div>
         )
@@ -78,5 +86,12 @@ const styles = {
         top: '47%',
         left: '68%',
         cursor: 'pointer'
+    },
+    rightArea: {
+        display: 'flex',
+        flexDirection: 'column',
+        gridArea: '1 / 3 / span 1 / span 1',
+        padding: '5% 10% 5% 10%',
+        overflowY: 'scroll'
     }
 }
