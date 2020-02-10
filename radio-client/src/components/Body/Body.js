@@ -1,49 +1,30 @@
 import React, { Component } from 'react'
-import stations from '../../Stations/Station';
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from 'react-icons/fa';
+import Context from '../../Context/Context';
 
 export default class Body extends Component {
 
+    
     state = {
         stationID: 0
     }
 
-    stationUp = () => {
-        let id = this.state.stationID
-        if (id < stations.length - 1) {
-            this.setState({
-                stationID: (this.state.stationID + 1)
-            })
-        } else {
-            this.setState({
-                stationID: 0
-            })
-        }
-    }
-
-    stationDown = () => {
-        let id = this.state.stationID
-        if (id === 0) {
-            this.setState({
-                stationID: (stations.length - 1)
-            })
-        } else {
-            this.setState({
-                stationID: (this.state.stationID - 1)
-            })
-        }
-    }
-
     
-
+    static contextType = Context;
     render() {
-        const stationLogo = stations[this.state.stationID].logo    
+        console.log(this.context);
         return (
             <div style={styles.main}>
                 <div style={styles.centerArea}>
-                    <img src={stationLogo} style={styles.stationLogo} alt="Radio station logo" />
-                    <FaArrowAltCircleLeft size={48} onClick={this.stationDown} style={styles.arrowLeft} />
-                    <FaArrowAltCircleRight size={48} onClick={this.stationUp} style={styles.arrowRight} />
+                    <div style={styles.centerAreaLeft}>
+                        <FaArrowAltCircleLeft size={48} />
+                    </div>
+                    <div style={styles.centerAreaMiddle}>
+                        <img src={this.context.stations[this.context.currentStation].logo} style={styles.stationLogo} alt="Radio station logo" />
+                    </div>
+                    <div style={styles.centerAreaRight}>
+                        <FaArrowAltCircleRight size={48} />
+                    </div>
                 </div>
             </div>
         )
@@ -60,11 +41,28 @@ const styles = {
         backgroundImage: 'linear-gradient(to right, lightgray, white)'
     },
     centerArea: {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
+        display: 'grid',
+        gridTemplateColumns: '10% 80% 10%',
+        gridTemplateRows: '100%',
         gridArea: '1 / 2 / span 1 / span 1'
+    },
+    centerAreaLeft: {
+        display: 'flex',
+        gridArea: '1 / 1 / span 1 / span 1',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    centerAreaMiddle: {
+        display: 'flex',
+        gridArea: '1 / 2 / span 1 / span 1',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    centerAreaRight: {
+        display: 'flex',
+        gridArea: '1 / 3 / span 1 / span 1',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     stationLogo: {
         height: '90%'
