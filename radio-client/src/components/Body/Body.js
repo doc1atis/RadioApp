@@ -5,7 +5,11 @@ import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from 'react-icons/fa';
 export default class Body extends Component {
 
     state = {
-        stationID: 1
+        stationID: 0
+    }
+
+    stationUp = () => {
+        
     }
 
     
