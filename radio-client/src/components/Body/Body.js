@@ -9,7 +9,29 @@ export default class Body extends Component {
     }
 
     stationUp = () => {
-        
+        let id = this.state.stationID
+        if (id < stations.length - 1) {
+            this.setState({
+                stationID: (this.state.stationID + 1)
+            })
+        } else {
+            this.setState({
+                stationID: 0
+            })
+        }
+    }
+
+    stationDown = () => {
+        let id = this.state.stationID
+        if (id === 0) {
+            this.setState({
+                stationID: (stations.length - 1)
+            })
+        } else {
+            this.setState({
+                stationID: (this.state.stationID - 1)
+            })
+        }
     }
 
     
@@ -20,8 +42,8 @@ export default class Body extends Component {
             <div style={styles.main}>
                 <div style={styles.centerArea}>
                     <img src={stationLogo} style={styles.stationLogo} alt="Radio station logo" />
-                    <FaArrowAltCircleLeft size={48} style={styles.arrowLeft} />
-                    <FaArrowAltCircleRight size={48} style={styles.arrowRight} />
+                    <FaArrowAltCircleLeft size={48} onClick={this.stationDown} style={styles.arrowLeft} />
+                    <FaArrowAltCircleRight size={48} onClick={this.stationUp} style={styles.arrowRight} />
                 </div>
             </div>
         )
