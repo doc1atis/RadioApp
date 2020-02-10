@@ -1,6 +1,6 @@
 
 
-
+ 
 import React, { Component } from "react"
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 import Context from "../../Context/Context";
