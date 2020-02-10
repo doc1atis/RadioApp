@@ -14,15 +14,19 @@ export default class PlayerBar extends Component {
     isPlaying: false,
     isMuted: false
   };
-
+  soundId = null;
   sound = new Howl({
     src: stations[0].src,
     format: ["mp3", "acc"],
     html5: true,
+    autoplay: true,
     onplay: soundId => {
+      // fire when the sound start playing
+      this.soundId = soundId;
       this.setState({ isPlaying: true });
     },
     onstop: soundId => {
+      this.soundId = soundId;
       this.setState({ isPlaying: false });
     },
     onmute: soundId => {
@@ -30,14 +34,13 @@ export default class PlayerBar extends Component {
     }
   });
 
-  soundId = null;
-  playRadio = () => {
+  playRadio = event => {
     if (!this.sound.playing(this.soundId)) {
-      this.soundId = this.sound.play();
+      this.sound.play(this.soundId);
     }
   };
 
-  stopRadio = () => {
+  stopRadio = event => {
     if (this.sound.playing(this.soundId)) {
       this.sound.stop(this.soundId);
     }
