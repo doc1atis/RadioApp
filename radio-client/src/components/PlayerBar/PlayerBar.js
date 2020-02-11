@@ -6,19 +6,22 @@ import pauseButton from "./pauseButton.png";
 import muteButton from "./muteButton.png";
 import unmuteButton from "./unmuteButton.png";
 import favoriteAdd from "./favoriteAdd.png";
-import favoriteRemove from "./favoriteRemove.png";
+// import favoriteRemove from "./favoriteRemove.png";
+import previousButton from "./previousButton.png";
+import nextButton from "./nextButton.png";
 import Context from "../../Context/Context";
-import stations from "../../Stations/Station";
+
 export default class PlayerBar extends Component {
   static contextType = Context;
+
   state = {
     isPlaying: false,
-    isMuted: false,
-    currentStation: this.context.currentStation
+    isMuted: false
   };
+
   soundId = 1001;
   sound = new Howl({
-    src: stations[this.context.currentStation].src,
+    src: this.context.stations[this.context.currentStation].src,
     format: ["mp3", "acc"],
     html5: true,
     autoplay: false,
@@ -59,15 +62,18 @@ export default class PlayerBar extends Component {
   };
 
   render() {
-    console.log(
-      "the context current station is: ",
-      this.context.currentStation
-    );
-    console.log("the state current station is: ", this.state.currentStation);
+    console.log(this.context);
     return (
       <div style={styles.main}>
         <div style={styles.leftSection}>left</div>
+
         <div style={styles.centerSection}>
+          <img
+            src={previousButton}
+            style={styles.buttonImg}
+            alt="Change to previous station"
+            onClick={this.context.previousStation}
+          />
           {this.state.isPlaying ? (
             <>
               <img
@@ -76,9 +82,6 @@ export default class PlayerBar extends Component {
                 onClick={this.stopRadio}
                 alt="Play radio button"
               />
-              <p style={{ margin: "1vh 0 1vh 0" }}>
-                Click PAUSE to take a break
-              </p>
             </>
           ) : (
             <>
@@ -88,9 +91,14 @@ export default class PlayerBar extends Component {
                 onClick={this.playRadio}
                 alt="Play radio button"
               />
-              <p style={{ margin: "1vh 0 1vh 0" }}>Click PLAY to jam out!</p>
             </>
           )}
+          <img
+            src={nextButton}
+            style={styles.buttonImg}
+            alt="Change to previous station"
+            onClick={this.context.nextStation}
+          />
         </div>
         <div style={styles.rightSection}>
           {/* Mute button display */}
@@ -142,7 +150,6 @@ const styles = {
   },
   centerSection: {
     display: "flex",
-    flexDirection: "column",
     gridArea: "1 / 2 / span 1 / span 1",
     alignItems: "center",
     justifyContent: "center",
