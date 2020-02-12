@@ -39,6 +39,8 @@ const styles = {
   leftArea: {
     gridArea: "1 / 1 / span 1 / span 1",
     display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
     flexDirection: "column"
   },
   middleArea: {
