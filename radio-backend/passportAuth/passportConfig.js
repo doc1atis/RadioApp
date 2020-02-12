@@ -33,7 +33,6 @@ const jwtLogin = new JwtStrategy(jwtOptions, async function(payload, done) {
     }
     done(null, false);
   } catch (error) {
-    console.log("OLgy passport error is: ", error);
     done(error, false);
   }
 });
