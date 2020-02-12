@@ -12,6 +12,7 @@ import favoriteAdd from "./favoriteAdd.png";
 import favoriteRemove from "./favoriteRemove.png";
 import Spinner from "../Spinner/Spinner";
 import Context from "../../Context/Context";
+import addToFavorites from "../../API/addToFavorites";
 export default class PlayerBar extends Component {
   static contextType = Context;
   current = this.context.currentStation;
@@ -82,6 +83,9 @@ export default class PlayerBar extends Component {
   };
   itPlays = () => {
     this.setState({ isLoading: false });
+  };
+  addStationToFavorites = () => {
+    addToFavorites(this.context.stations[this.state.currentStation]);
   };
   render() {
     return (
@@ -159,6 +163,7 @@ export default class PlayerBar extends Component {
             src={favoriteAdd}
             style={styles.buttonImg}
             alt="Herat button that adds station to favorite list"
+            onClick={this.addStationToFavorites}
           />
         </div>
       </div>
