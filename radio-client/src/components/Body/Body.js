@@ -34,11 +34,14 @@ const styles = {
     display: "grid",
     gridTemplateColumns: "25% 50% 25%",
     gridTemplateRows: "100%",
-    backgroundImage: "linear-gradient(to right, lightgray, white)"
+    backgroundImage:
+      "linear-gradient(to right, white 0%, 30%, darkkhaki 50%, 70%, white 100%)"
   },
   leftArea: {
     gridArea: "1 / 1 / span 1 / span 1",
     display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
     flexDirection: "column"
   },
   middleArea: {
