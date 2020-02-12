@@ -8,7 +8,11 @@ export default class StationSidebar extends Component {
     return (
       <div style={styles.main}>
         <div style={styles.imgArea}>
-          <img src={this.props.station.logo} style={styles.logo} />
+          <img
+            src={this.props.station.logo}
+            style={styles.logo}
+            alt="Logo of the corresponding radio station"
+          />
         </div>
 
         <div style={styles.infoArea}>
@@ -27,10 +31,11 @@ const styles = {
     margin: "0 0 5vh 0",
     display: "grid",
     gridTemplateRows: "100%",
-    gridTemplateColumns: "27% 73%",
+    gridTemplateColumns: "28% 72%",
     cursor: "pointer",
     backgroundImage: "linear-gradient(to right, #41B3A3, #85DCB0)",
-    borderRadius: "5px"
+    borderRadius: "5px",
+    width: "75%"
   },
   imgArea: {
     gridArea: "1 / 1 / span 1 / span 1",

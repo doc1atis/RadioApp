@@ -6,8 +6,9 @@ import Body from "./components/Body/Body";
 import Context from "./Context/Context";
 class App extends React.Component {
   state = {
-    currentStation: 0
+    currentStation: 0,
   };
+
   setCurrentStation = currentStation => {
     this.setState({ currentStation });
   };
@@ -22,7 +23,9 @@ class App extends React.Component {
         <div id="myApp" className="App">
           <NavBar />
           <Body />
+
           <PlayerBar setCurrentStation={this.setCurrentStation} />
+
         </div>
       </Context.Provider>
     );
