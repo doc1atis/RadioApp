@@ -1,84 +1,119 @@
+/*eslint-disable*/
 import React, { Component } from "react";
-import { Howl } from "howler";
+import ReactHowler from "react-howler";
 import "./PlayerBar.css";
 import playButton from "./playButton.png";
 import pauseButton from "./pauseButton.png";
 import muteButton from "./muteButton.png";
+import previousButton from "./previousButton.png";
+import nextButton from "./nextButton.png";
 import unmuteButton from "./unmuteButton.png";
 import favoriteAdd from "./favoriteAdd.png";
 import favoriteRemove from "./favoriteRemove.png";
+import Spinner from "../Spinner/Spinner";
 import Context from "../../Context/Context";
-import stations from "../../Stations/Station";
 export default class PlayerBar extends Component {
   static contextType = Context;
+  current = this.context.currentStation;
   state = {
+    currentStation: this.current,
     isPlaying: false,
     isMuted: false,
-    currentStation: this.context.currentStation
+    isLoading: false
   };
-  soundId = 1001;
-  sound = new Howl({
-    src: stations[this.context.currentStation].src,
-    format: ["mp3", "acc"],
-    html5: true,
-    autoplay: false,
-    onplay: soundId => {
-      // fire when the sound start playing
-      this.soundId = soundId;
-      this.setState({ isPlaying: true });
-    },
-    onstop: soundId => {
-      this.soundId = soundId;
-      this.setState({ isPlaying: false });
-    },
-    onmute: soundId => {
-      this.setState({ isMuted: !this.state.isMuted });
-    }
-  });
+  nextStation = () => {
+    this.current++;
 
-  playRadio = event => {
-    if (!this.sound.playing(this.soundId)) {
-      this.sound.play(this.soundId);
-    }
-  };
+    if (
+      this.current <= this.context.stations.length - 1 &&
+      this.state.isPlaying
+    ) {
+      this.props.setCurrentStation(this.current);
 
-  stopRadio = event => {
-    if (this.sound.playing(this.soundId)) {
-      this.sound.stop(this.soundId);
+      this.setState({
+        currentStation: this.current,
+        isPlaying: true,
+        isMuted: false,
+        isLoading: true
+      });
+    } else if (
+      this.current > this.context.stations.length - 1 &&
+      this.state.isPlaying
+    ) {
+      this.current = 0;
+      this.props.setCurrentStation(this.current);
+      this.setState({
+        currentStation: this.current,
+        isPlaying: true,
+        isMuted: false,
+        isLoading: true
+      });
     }
   };
-
+  previousStation = () => {
+    this.current--;
+    if (this.current >= 0 && this.state.isPlaying) {
+      this.props.setCurrentStation(this.current);
+      this.setState({
+        currentStation: this.current,
+        isPlaying: true,
+        isMuted: false,
+        isLoading: true
+      });
+    } else if (this.current < 0 && this.state.isPlaying) {
+      this.current = stations.length - 1;
+      this.props.setCurrentStation(this.current);
+      this.setState({
+        currentStation: this.current,
+        isPlaying: true,
+        isMuted: false,
+        isLoading: true
+      });
+    }
+  };
+  playRadio = () => {
+    this.setState({ isPlaying: true, isLoading: true });
+  };
+  stopRadio = () => {
+    this.setState({ isPlaying: false });
+  };
   muteAndUnmuteRadio = () => {
-    if (this.sound.playing(this.soundId)) {
-      if (this.state.isMuted) {
-        this.sound.mute(false, this.soundId);
-      } else {
-        this.sound.mute(true, this.soundId);
-      }
-    }
+    this.setState({ isMuted: !this.state.isMuted });
   };
-
+  itPlays = () => {
+    this.setState({ isLoading: false });
+  };
   render() {
-    console.log(
-      "the context current station is: ",
-      this.context.currentStation
-    );
-    console.log("the state current station is: ", this.state.currentStation);
     return (
       <div style={styles.main}>
+        <ReactHowler
+          src={this.context.stations[this.state.currentStation].src}
+          playing={this.state.isPlaying}
+          html5={true}
+          mute={this.state.isMuted}
+          format={["mp3", "acc"]}
+          onPlay={this.itPlays}
+        />
         <div style={styles.leftSection}>left</div>
         <div style={styles.centerSection}>
+          <img
+            src={previousButton}
+            style={styles.buttonImg}
+            alt="Change to previous station"
+            onClick={this.previousStation}
+          />
           {this.state.isPlaying ? (
             <>
-              <img
-                src={pauseButton}
-                style={styles.buttonImg}
-                onClick={this.stopRadio}
-                alt="Play radio button"
-              />
-              <p style={{ margin: "1vh 0 1vh 0" }}>
-                Click PAUSE to take a break
-              </p>
+              {this.state.isLoading ? (
+                <Spinner />
+              ) : (
+                <img
+                  src={pauseButton}
+                  style={styles.buttonImg}
+                  onClick={this.stopRadio}
+                  alt="Play radio button"
+                />
+              )}
             </>
           ) : (
             <>
@@ -88,9 +123,14 @@ export default class PlayerBar extends Component {
                 onClick={this.playRadio}
                 alt="Play radio button"
               />
-              <p style={{ margin: "1vh 0 1vh 0" }}>Click PLAY to jam out!</p>
             </>
           )}
+          <img
+            src={nextButton}
+            style={styles.buttonImg}
+            alt="Change to previous station"
+            onClick={this.nextStation}
+          />
         </div>
         <div style={styles.rightSection}>
           {/* Mute button display */}
@@ -125,7 +165,6 @@ export default class PlayerBar extends Component {
     );
   }
 }
-
 const styles = {
   main: {
     display: "grid",
@@ -142,7 +181,6 @@ const styles = {
   },
   centerSection: {
     display: "flex",
-    flexDirection: "column",
     gridArea: "1 / 2 / span 1 / span 1",
     alignItems: "center",
     justifyContent: "center",
