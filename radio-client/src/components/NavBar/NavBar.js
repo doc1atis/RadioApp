@@ -1,77 +1,8 @@
 import React, { Component } from "react";
 import appLogo from "./appLogo.jpg";
 import logoText from "./logoText.png";
-export default class NavBar extends Component {
-  mouseDown = event => {};
-  mouseUp = event => {
-    event.target.style.boxShadow = "4px 4px gray";
-  };
-  render() {
-    return (
-      <>
-        <link
-          href="https://fonts.googleapis.com/css?family=Geostar+Fill&display=swap"
-          rel="stylesheet"
-        ></link>
-        <div style={styles.main}>
-          <div style={styles.leftSection}>
-            <img
-              src={appLogo}
-              style={styles.logoImg}
-              alt="SINCAGRS Streaming app logo"
-            />
-            <img
-              src={logoText}
-              style={styles.logoImg}
-              alt="Text that reads SINCGARS Streaming"
-            />
-          </div>
-          <div style={styles.rightSection}>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              placeholder="Username"
-              style={styles.input}
-              onFocus={event => {
-                event.target.style.outline = "5px ridge #A6ADF1";
-                event.target.style.fontFamily =
-                  "'Times New Roman', Times, serif";
-              }}
-              onBlur={event => {
-                event.target.style.outline = "none";
-                event.target.style.fontFamily = "'Geostar Fill', script";
-              }}
-            />
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Password"
-              style={styles.input}
-              onFocus={event => {
-                event.target.style.outline = "5px ridge #A6ADF1";
-              }}
-              onBlur={event => (event.target.style.outline = "none")}
-            />
-            <button
-              id="submitButton"
-              type="button"
-              style={styles.button}
-              onMouseDown={event => (event.target.style.boxShadow = "")}
-              onMouseUp={event =>
-                (event.target.style.boxShadow = "4px 4px gray")
-              }
-              onFocus={event => (event.target.style.outline = "none")}
-            >
-              Submit
-            </button>
-          </div>
-        </div>
-      </>
-    );
-  }
-}
+import NavBarInput from "../NavBarInput/NavBarInput";
+import logUserIn from "../../API/logUserIn";
 const styles = {
   main: {
     height: "14vh",
@@ -123,3 +54,73 @@ const styles = {
     fontStyle: "italic"
   }
 };
+export default class NavBar extends Component {
+  state = { errorMessage: null };
+  mouseDown = event => {};
+  mouseUp = event => {
+    event.target.style.boxShadow = "4px 4px gray";
+  };
+  onFormSubmit = async event => {
+    event.preventDefault();
+    const username = event.target.elements[0].value;
+    const password = event.target.elements[1].value;
+    const errorMessage = logUserIn({ username, password });
+    if (errorMessage) {
+      this.setState({ errorMessage });
+    }
+  };
+  render() {
+    return (
+      <>
+        <link
+          href="https://fonts.googleapis.com/css?family=Geostar+Fill&display=swap"
+          rel="stylesheet"
+        ></link>
+        <div style={styles.main}>
+          <div style={styles.leftSection}>
+            <img
+              src={appLogo}
+              style={styles.logoImg}
+              alt="SINCAGRS Streaming app logo"
+            />
+            <img
+              src={logoText}
+              style={styles.logoImg}
+              alt="Text that reads SINCGARS Streaming"
+            />
+          </div>
+          <form onSubmit={this.onFormSubmit} style={styles.rightSection}>
+            <NavBarInput
+              inputType="text"
+              inputId="username"
+              inputName="username"
+              inputPlaceHolder="Username"
+              errorMessage={this.state.errorMessage}
+              inputStyle={styles.input}
+            />
+            <NavBarInput
+              inputType="password"
+              inputId="password"
+              inputName="password"
+              inputPlaceHolder="Password"
+              errorMessage={this.state.errorMessage}
+              le={styles.input}
+            />
+            <button
+              id="submitButton"
+              type="submit"
+              style={styles.button}
+              onMouseDown={event => (event.target.style.boxShadow = "")}
+              onMouseUp={event =>
+                (event.target.style.boxShadow = "4px 4px gray")
+              }
+              onFocus={event => (event.target.style.outline = "none")}
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+      </>
+    );
+  }
+}
