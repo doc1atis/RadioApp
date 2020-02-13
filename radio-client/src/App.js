@@ -1,12 +1,16 @@
-import React from "react";
+import React, { Component } from "react";
+import { BrowserRouter as Router } from "react-router-dom";
 import PlayerBar from "./components/PlayerBar/PlayerBar";
 import allStations from "./Stations/Station";
 import NavBar from "./components/NavBar/NavBar";
 import Body from "./components/Body/Body";
 import Context from "./Context/Context";
-class App extends React.Component {
+import MainRouter from "./MainRouter";
+import Spinner from "./components/Spinner/Spinner";
+
+export default class App extends Component {
   state = {
-    currentStation: 0,
+    currentStation: 0
   };
 
   setCurrentStation = currentStation => {
@@ -21,15 +25,13 @@ class App extends React.Component {
         }}
       >
         <div id="myApp" className="App">
-          <NavBar />
-          <Body />
-
-          <PlayerBar setCurrentStation={this.setCurrentStation} />
-
+          <Router>
+            <React.Suspense fallback={<Spinner />}>
+              <MainRouter />
+            </React.Suspense>
+          </Router>
         </div>
       </Context.Provider>
     );
   }
 }
-
-export default App;

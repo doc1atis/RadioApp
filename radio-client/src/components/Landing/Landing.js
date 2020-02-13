@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import appLogo from "../NavBar/appLogo.jpg";
 import ReactTypingEffect from "react-typing-effect";
-import "./index.css";
+// import "./index.css";
+import { NavLink } from "react-router-dom";
 
 export default class Landing extends Component {
   render() {
@@ -13,11 +14,13 @@ export default class Landing extends Component {
         ></link>
         <div style={styles.main}>
           <div style={styles.contentSection}>
-            <img
-              src={appLogo}
-              style={styles.logo}
-              alt="SINCGARS Streaming radio app logo"
-            />
+            <NavLink to="/player" active>
+              <img
+                src={appLogo}
+                style={styles.logo}
+                alt="SINCGARS Streaming radio app logo"
+              />
+            </NavLink>
 
             <div style={styles.scrollText}>
               <ReactTypingEffect
