@@ -52,7 +52,7 @@ const styles = {
   },
   title: {
     fontWeight: "bold",
-    margin: "0 0 5vh 0",
+    // margin: "0 0 5vh 0",
     fontSize: "1.4em",
     margin: "0 0 2vh 0"
   },
