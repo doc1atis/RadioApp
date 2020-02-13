@@ -98,7 +98,12 @@ export default class PlayerBar extends Component {
           format={["mp3", "acc"]}
           onPlay={this.itPlays}
         />
-        <div style={styles.leftSection}>left</div>
+        <div style={styles.leftSection}>
+          <p>
+            Copyright &copy; 2020 Olgy & Brindle Development, All rights
+            reserved.
+          </p>
+        </div>
         <div style={styles.centerSection}>
           <img
             src={previousButton}
@@ -182,7 +187,11 @@ const styles = {
   leftSection: {
     display: "flex",
     flexDirection: "column",
-    gridArea: "1 / 1 / span 1 / span 1"
+    gridArea: "1 / 1 / span 1 / span 1",
+    color: "lightgray",
+    fontSize: "0.7em",
+    justifyContent: "flex-end",
+    alignItems: "center"
   },
   centerSection: {
     display: "flex",
