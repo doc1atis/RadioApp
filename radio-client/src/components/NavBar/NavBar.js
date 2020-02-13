@@ -104,7 +104,7 @@ export default class NavBar extends Component {
               inputName="password"
               inputPlaceHolder="Password"
               errorMessage={this.state.errorMessage}
-              le={styles.input}
+              inputStyle={styles.input}
             />
             <button
               id="submitButton"
