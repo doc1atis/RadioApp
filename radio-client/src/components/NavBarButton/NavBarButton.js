@@ -11,6 +11,7 @@ export default class NavBarButton extends Component {
         onMouseDown={event => (event.target.style.boxShadow = "")}
         onMouseUp={event => (event.target.style.boxShadow = "4px 4px gray")}
         onFocus={event => (event.target.style.outline = "none")}
+        onClick={this.props.clickFunction}
       >
         {this.props.buttonText}
       </button>

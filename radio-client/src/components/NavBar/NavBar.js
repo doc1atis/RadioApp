@@ -4,6 +4,7 @@ import logoText from "./logoText.png";
 import NavBarInput from "../NavBarInput/NavBarInput";
 import logUserIn from "../../API/logUserIn";
 import NavBarButton from "../NavBarButton/NavBarButton";
+import SignUp from "../SignUp/SignUp";
 const styles = {
   main: {
     height: "14vh",
@@ -56,7 +57,7 @@ const styles = {
   }
 };
 export default class NavBar extends Component {
-  state = { errorMessage: null };
+  state = { errorMessage: null, showSignUp: false };
   mouseDown = event => {};
   mouseUp = event => {
     event.target.style.boxShadow = "4px 4px gray";
@@ -70,6 +71,12 @@ export default class NavBar extends Component {
       this.setState({ errorMessage });
     }
   };
+
+  showModal = () => {
+    this.setState({
+      showSignUp: !this.state.showSignUp
+    });
+  };
   render() {
     return (
       <>
@@ -77,6 +84,9 @@ export default class NavBar extends Component {
           href="https://fonts.googleapis.com/css?family=Geostar+Fill&display=swap"
           rel="stylesheet"
         ></link>
+        <div>
+          <SignUp open={this.state.showSignUp} closeModal={this.showModal} />
+        </div>
         <div style={styles.main}>
           <div style={styles.leftSection}>
             <img
@@ -120,6 +130,7 @@ export default class NavBar extends Component {
               buttonName="signUpButton"
               buttonStyle={styles.button}
               buttonText="Sign Up"
+              clickFunction={this.showModal}
             />
           </form>
         </div>
