@@ -15,18 +15,16 @@ module.exports = {
       await createdUser.save();
       res.status(200).json({ success: true, message: "user was registered" });
     } catch (error) {
-      res
-        .status(400)
-        .json({
-          success: false,
-          message: "failed to register user",
-          dbError: true,
-          error
-        });
+      res.status(400).json({
+        success: false,
+        message: "failed to register user",
+        dbError: true,
+        error
+      });
     }
   },
   login: (req, res) => {
-    res.status.json({ token: req.user.generateToken() });
+    res.status(200).json({ token: req.user.generateToken() });
   },
   addStationToFavorite: async (req, res) => {
     try {
