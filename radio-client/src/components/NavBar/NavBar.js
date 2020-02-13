@@ -3,6 +3,7 @@ import appLogo from "./appLogo.jpg";
 import logoText from "./logoText.png";
 import NavBarInput from "../NavBarInput/NavBarInput";
 import logUserIn from "../../API/logUserIn";
+import NavBarButton from "../NavBarButton/NavBarButton";
 const styles = {
   main: {
     height: "14vh",
@@ -106,18 +107,20 @@ export default class NavBar extends Component {
               errorMessage={this.state.errorMessage}
               inputStyle={styles.input}
             />
-            <button
-              id="submitButton"
-              type="submit"
-              style={styles.button}
-              onMouseDown={event => (event.target.style.boxShadow = "")}
-              onMouseUp={event =>
-                (event.target.style.boxShadow = "4px 4px gray")
-              }
-              onFocus={event => (event.target.style.outline = "none")}
-            >
-              Submit
-            </button>
+            <NavBarButton
+              buttonType="submit"
+              buttonID="submitButton"
+              buttonName="submitButton"
+              buttonStyle={styles.button}
+              buttonText="Submit"
+            />
+            <NavBarButton
+              buttonType="button"
+              buttonID="signUpButton"
+              buttonName="signUpButton"
+              buttonStyle={styles.button}
+              buttonText="Sign Up"
+            />
           </form>
         </div>
       </>
