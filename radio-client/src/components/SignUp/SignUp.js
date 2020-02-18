@@ -4,24 +4,37 @@ import logo from "./appLogoFaded.jpg";
 import NavBarButton from "../NavBarButton/NavBarButton";
 import NavInput from "../NavBarInput/NavBarInput";
 import NavBarInput from "../NavBarInput/NavBarInput";
+import "../../../src/App.css";
 
 export default class SignUp extends Component {
   state = {
     error: false,
-    errorMessage: ""
+    errorMessage: []
   };
 
   signUp = () => {
-    if (
-      document.querySelector(`#password1`).value !==
-      document.querySelector(`#password2`).value
-    ) {
-      console.log(`PASSWROD NOT MATCHING`);
-      this.setState({
-        error: true,
-        errorMessage: "Passwords must match"
-      });
+    if (document.querySelector(`#usernameSignup`).value === "") {
+      this.state.errorMessage.push("User Name field cannot be empty");
     }
+    if (document.querySelector(`#emailSignup`).value === "") {
+      this.state.errorMessage.push("Email field cannot be empty");
+    }
+    if (document.querySelector(`#password1Signup`).value === "") {
+      this.state.errorMessage.push("Password field cannot be empty");
+    }
+    if (
+      document.querySelector(`#password1Signup`).value !==
+      document.querySelector(`#password2Signup`).value
+    ) {
+      this.state.errorMessage.push("Passwords must match");
+    }
+    if (this.state.errorMessage.length > 0) {
+      this.setState({
+        error: true
+      });
+      document.querySelector(`#signup`).disabled = true;
+    }
+    return;
   };
 
   closeError = () => {
@@ -29,6 +42,7 @@ export default class SignUp extends Component {
       error: false,
       errorMessage: []
     });
+    document.querySelector(`#signup`).disabled = false;
   };
 
   render() {
@@ -49,8 +63,14 @@ export default class SignUp extends Component {
           <div style={styles.title}>
             <p>SIGN UP</p>
           </div>
-          <div style={styles.error} hidden={this.state.error ? false : true}>
-            <p>{this.state.errorMessage}</p>
+          <div
+            style={styles.error}
+            hidden={this.state.error ? false : true}
+            id="errorDiv"
+          >
+            {this.state.errorMessage.map(item => {
+              return <p>{item}</p>;
+            })}
             <button type="button" onClick={this.closeError}>
               Close
             </button>
@@ -64,29 +84,29 @@ export default class SignUp extends Component {
           <div style={styles.signupRight}>
             <NavBarInput
               inputType="text"
-              inputId="username"
-              inputName="username"
+              inputId="usernameSignup"
+              inputName="usernameSignup"
               inputStyle={styles.input}
             />
 
             <NavBarInput
               inputType="text"
-              inputId="email"
-              inputName="email"
+              inputId="emailSignup"
+              inputName="emailSignup"
               inputStyle={styles.input}
             />
 
             <NavBarInput
               inputType="password"
-              inputId="password1"
-              inputName="password1"
+              inputId="password1Signup"
+              inputName="password1Signup"
               inputStyle={styles.input}
             />
 
             <NavBarInput
               inputType="password"
-              inputId="password2"
-              inputName="password2"
+              inputId="password2Signup"
+              inputName="password2Signup"
               inputStyle={styles.input}
             />
           </div>
@@ -169,7 +189,7 @@ const styles = {
   },
   error: {
     gridArea: "2 / 1 / span 1 / span 2",
-    height: "15vh",
+    height: "35vh",
     width: "70%",
     backgroundColor: "pink",
     zIndex: "10",
