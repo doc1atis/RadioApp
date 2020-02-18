@@ -9,7 +9,8 @@ import signUpApi from "../../API/signUpApi";
 export default class SignUp extends Component {
   state = {
     error: false,
-    errorMessage: []
+    errorMessage: [],
+    success: false
   };
 
   signUp = async () => {
@@ -43,6 +44,9 @@ export default class SignUp extends Component {
     };
     const newUser = await signUpApi(data);
     console.log(newUser);
+    this.setState({
+      success: true
+    });
   };
 
   closeError = () => {
@@ -71,6 +75,7 @@ export default class SignUp extends Component {
           <div style={styles.title}>
             <p>SIGN UP</p>
           </div>
+          {/* Error message dv */}
           <div
             style={styles.error}
             hidden={this.state.error ? false : true}
@@ -80,6 +85,17 @@ export default class SignUp extends Component {
               return <p>{item}</p>;
             })}
             <button type="button" onClick={this.closeError}>
+              Close
+            </button>
+          </div>
+          {/* End */}
+          {/* Success message div */}
+          <div
+            style={styles.success}
+            hidden={this.state.success ? false : true}
+          >
+            <p>User created successfully! Please sign in...</p>
+            <button type="button" onClick={this.props.closeModal}>
               Close
             </button>
           </div>
@@ -203,6 +219,20 @@ const styles = {
     zIndex: "10",
     margin: "auto",
     border: "8px solid red",
+    borderRadius: "5px",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  success: {
+    gridArea: "2 / 1 / span 1 / span 2",
+    height: "35vh",
+    width: "70%",
+    backgroundColor: "skyblue",
+    zIndex: "10",
+    margin: "auto",
+    border: "8px solid blue",
     borderRadius: "5px",
     display: "flex",
     flexDirection: "column",

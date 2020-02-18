@@ -1,8 +1,8 @@
-import API from "./api";
+import apiNoToken from "./apiNoToken";
 
 const signUpApi = async data => {
   try {
-    const success = await API.post("/users/signup", data);
+    const success = await apiNoToken.post("/users/signup", data);
     return success;
   } catch (err) {
     return err;
