@@ -15,4 +15,6 @@ router.delete("/favorites/:id", protectWith("jwt"), (req, res) => {
   res.send("favorite deleted");
 });
 
+router.post("/signup", userController.signup);
+
 module.exports = router;

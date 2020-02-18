@@ -4,7 +4,7 @@ import logo from "./appLogoFaded.jpg";
 import NavBarButton from "../NavBarButton/NavBarButton";
 import NavInput from "../NavBarInput/NavBarInput";
 import NavBarInput from "../NavBarInput/NavBarInput";
-import "../../../src/App.css";
+import signUpApi from "../../API/signUpApi";
 
 export default class SignUp extends Component {
   state = {
@@ -12,7 +12,7 @@ export default class SignUp extends Component {
     errorMessage: []
   };
 
-  signUp = () => {
+  signUp = async () => {
     if (document.querySelector(`#usernameSignup`).value === "") {
       this.state.errorMessage.push("User Name field cannot be empty");
     }
@@ -33,8 +33,16 @@ export default class SignUp extends Component {
         error: true
       });
       document.querySelector(`#signup`).disabled = true;
+      return;
     }
-    return;
+
+    const data = {
+      username: document.querySelector(`#usernameSignup`).value,
+      email: document.querySelector(`#emailSignup`).value,
+      password: document.querySelector(`#password1Signup`).value
+    };
+    const newUser = await signUpApi(data);
+    console.log(newUser);
   };
 
   closeError = () => {
