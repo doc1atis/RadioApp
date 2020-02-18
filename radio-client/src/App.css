@@ -36,3 +36,9 @@
     transform: rotate(360deg);
   }
 }
+
+.error-appear {
+  transition-timing-function: ease-out;
+  transition: 0.25s;
+  transform: translateY(0);
+}
