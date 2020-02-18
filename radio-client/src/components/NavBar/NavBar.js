@@ -5,6 +5,7 @@ import NavBarInput from "../NavBarInput/NavBarInput";
 import logUserIn from "../../API/logUserIn";
 import NavBarButton from "../NavBarButton/NavBarButton";
 import SignUp from "../SignUp/SignUp";
+import "../../App.css";
 const styles = {
   main: {
     height: "14vh",
@@ -57,7 +58,7 @@ const styles = {
   }
 };
 export default class NavBar extends Component {
-  state = { errorMessage: null, showSignUp: false };
+  state = { errorMessage: null, showSignUp: true };
   mouseDown = event => {};
   mouseUp = event => {
     event.target.style.boxShadow = "4px 4px gray";
@@ -84,7 +85,7 @@ export default class NavBar extends Component {
           href="https://fonts.googleapis.com/css?family=Geostar+Fill&display=swap"
           rel="stylesheet"
         ></link>
-        <div>
+        <div id="modals">
           <SignUp open={this.state.showSignUp} closeModal={this.showModal} />
         </div>
         <div style={styles.main}>
@@ -108,6 +109,7 @@ export default class NavBar extends Component {
               inputPlaceHolder="Username"
               errorMessage={this.state.errorMessage}
               inputStyle={styles.input}
+              buttonMargin="0 5vw 0 0"
             />
             <NavBarInput
               inputType="password"
@@ -116,6 +118,7 @@ export default class NavBar extends Component {
               inputPlaceHolder="Password"
               errorMessage={this.state.errorMessage}
               inputStyle={styles.input}
+              buttonMargin="0 5vw 0 0"
             />
             <NavBarButton
               buttonType="submit"
