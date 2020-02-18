@@ -3,6 +3,9 @@ import appLogo from "./appLogo.jpg";
 import logoText from "./logoText.png";
 import NavBarInput from "../NavBarInput/NavBarInput";
 import logUserIn from "../../API/logUserIn";
+import NavBarButton from "../NavBarButton/NavBarButton";
+import SignUp from "../SignUp/SignUp";
+import "../../App.css";
 const styles = {
   main: {
     height: "14vh",
@@ -55,7 +58,7 @@ const styles = {
   }
 };
 export default class NavBar extends Component {
-  state = { errorMessage: null };
+  state = { errorMessage: null, showSignUp: true };
   mouseDown = event => {};
   mouseUp = event => {
     event.target.style.boxShadow = "4px 4px gray";
@@ -69,6 +72,12 @@ export default class NavBar extends Component {
       this.setState({ errorMessage });
     }
   };
+
+  showModal = () => {
+    this.setState({
+      showSignUp: !this.state.showSignUp
+    });
+  };
   render() {
     return (
       <>
@@ -76,6 +85,9 @@ export default class NavBar extends Component {
           href="https://fonts.googleapis.com/css?family=Geostar+Fill&display=swap"
           rel="stylesheet"
         ></link>
+        <div id="modals">
+          <SignUp open={this.state.showSignUp} closeModal={this.showModal} />
+        </div>
         <div style={styles.main}>
           <div style={styles.leftSection}>
             <img
@@ -97,6 +109,7 @@ export default class NavBar extends Component {
               inputPlaceHolder="Username"
               errorMessage={this.state.errorMessage}
               inputStyle={styles.input}
+              buttonMargin="0 5vw 0 0"
             />
             <NavBarInput
               inputType="password"
@@ -105,19 +118,23 @@ export default class NavBar extends Component {
               inputPlaceHolder="Password"
               errorMessage={this.state.errorMessage}
               inputStyle={styles.input}
+              buttonMargin="0 5vw 0 0"
             />
-            <button
-              id="submitButton"
-              type="submit"
-              style={styles.button}
-              onMouseDown={event => (event.target.style.boxShadow = "")}
-              onMouseUp={event =>
-                (event.target.style.boxShadow = "4px 4px gray")
-              }
-              onFocus={event => (event.target.style.outline = "none")}
-            >
-              Submit
-            </button>
+            <NavBarButton
+              buttonType="submit"
+              buttonID="submitButton"
+              buttonName="submitButton"
+              buttonStyle={styles.button}
+              buttonText="Submit"
+            />
+            <NavBarButton
+              buttonType="button"
+              buttonID="signUpButton"
+              buttonName="signUpButton"
+              buttonStyle={styles.button}
+              buttonText="Sign Up"
+              clickFunction={this.showModal}
+            />
           </form>
         </div>
       </>

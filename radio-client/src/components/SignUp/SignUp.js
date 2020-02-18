@@ -1,0 +1,184 @@
+import React, { Component } from "react";
+import ReactModal from "react-modal";
+import logo from "./appLogoFaded.jpg";
+import NavBarButton from "../NavBarButton/NavBarButton";
+import NavInput from "../NavBarInput/NavBarInput";
+import NavBarInput from "../NavBarInput/NavBarInput";
+
+export default class SignUp extends Component {
+  state = {
+    error: false,
+    errorMessage: ""
+  };
+
+  signUp = () => {
+    if (
+      document.querySelector(`#password1`).value !==
+      document.querySelector(`#password2`).value
+    ) {
+      console.log(`PASSWROD NOT MATCHING`);
+      this.setState({
+        error: true,
+        errorMessage: "Passwords must match"
+      });
+    }
+  };
+
+  closeError = () => {
+    this.setState({
+      error: false,
+      errorMessage: []
+    });
+  };
+
+  render() {
+    return (
+      <ReactModal
+        isOpen={this.props.open}
+        style={{
+          overlay: {
+            top: 25,
+            left: 150,
+            bottom: 25,
+            right: 150,
+            backgroundColor: "rgba(0,0,0,0.3)"
+          }
+        }}
+      >
+        <div style={styles.main}>
+          <div style={styles.title}>
+            <p>SIGN UP</p>
+          </div>
+          <div style={styles.error} hidden={this.state.error ? false : true}>
+            <p>{this.state.errorMessage}</p>
+            <button type="button" onClick={this.closeError}>
+              Close
+            </button>
+          </div>
+          <div style={styles.signupLeft}>
+            <p style={styles.label}>Username:</p>
+            <p style={styles.label}>E-mail:</p>
+            <p style={styles.label}>Password:</p>
+            <p style={styles.label}>Confirm Password:</p>
+          </div>
+          <div style={styles.signupRight}>
+            <NavBarInput
+              inputType="text"
+              inputId="username"
+              inputName="username"
+              inputStyle={styles.input}
+            />
+
+            <NavBarInput
+              inputType="text"
+              inputId="email"
+              inputName="email"
+              inputStyle={styles.input}
+            />
+
+            <NavBarInput
+              inputType="password"
+              inputId="password1"
+              inputName="password1"
+              inputStyle={styles.input}
+            />
+
+            <NavBarInput
+              inputType="password"
+              inputId="password2"
+              inputName="password2"
+              inputStyle={styles.input}
+            />
+          </div>
+          <div style={styles.closeSection}>
+            <NavBarButton
+              buttonType="button"
+              buttonID="cancel"
+              buttonName="cancel"
+              clickFunction={this.props.closeModal}
+              buttonText="Cancel"
+            />
+
+            <NavBarButton
+              buttonType="button"
+              buttonID="signup"
+              buttonName="signup"
+              buttonText="Sign Up"
+              clickFunction={this.signUp}
+            />
+          </div>
+        </div>
+      </ReactModal>
+    );
+  }
+}
+
+const styles = {
+  main: {
+    height: "100%",
+    width: "100%",
+    display: "grid",
+    gridTemplateRows: "15% 70% 15%",
+    gridTemplateColumns: "50% 50%",
+    backgroundImage: `url(${logo})`,
+    backgroundSize: "contain",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    fontFamily: "'Geostar Fill', script"
+  },
+  title: {
+    gridArea: "1 / 1 / span 1 / span 2",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "2.5em",
+    textDecoration: "underline"
+  },
+  signupLeft: {
+    gridArea: "2 / 1 / span 1 / span 1",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "flex-end",
+    margin: "0 4vw 0 0"
+  },
+  signupRight: {
+    gridArea: "2 / 2 / span 1 / span 1",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "flex-start",
+    margin: "0 0 0 4vw"
+  },
+  closeSection: {
+    gridArea: "3 / 1 / span 1 / span 2",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  input: {
+    boxShadow: "4px 4px gray",
+    borderRadius: "4px",
+    margin: "3vh 0 3vh 0",
+    width: "20vw"
+  },
+  label: {
+    margin: "3vh 0 3vh 0",
+    fontSize: "1.2em",
+    fontStyle: "italic"
+  },
+  error: {
+    gridArea: "2 / 1 / span 1 / span 2",
+    height: "15vh",
+    width: "70%",
+    backgroundColor: "pink",
+    zIndex: "10",
+    margin: "auto",
+    border: "8px solid red",
+    borderRadius: "5px",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center"
+  }
+};
