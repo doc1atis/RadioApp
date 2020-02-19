@@ -83,5 +83,17 @@ module.exports = {
         error
       });
     }
+  },
+  signup: async (req, res) => {
+    try {
+      console.log(req.body);
+    } catch (err) {
+      res.state(500).json({
+        success: false,
+        message: "New user account could not be created",
+        dbError: true,
+        err
+      });
+    }
   }
 };
