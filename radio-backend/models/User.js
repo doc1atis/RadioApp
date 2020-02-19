@@ -4,7 +4,7 @@ const userSchema = new mongoose.Schema({
   username: { type: String, required: "username is required" },
   email: { type: String, required: "email is required" },
   password: { type: String, required: "password is required" },
-  favorites: { type: Array, default: [] }
+  favorites: []
 });
 userSchema.methods.generateToken = function() {
   const hour = 3600; //seconds
