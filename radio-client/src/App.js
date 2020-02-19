@@ -1,16 +1,14 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-import PlayerBar from "./components/PlayerBar/PlayerBar";
 import allStations from "./Stations/Station";
-import NavBar from "./components/NavBar/NavBar";
-import Body from "./components/Body/Body";
 import Context from "./Context/Context";
 import MainRouter from "./MainRouter";
 import Spinner from "./components/Spinner/Spinner";
-
+import isAuthenticated from "./API/isAuthenticated";
 export default class App extends Component {
   state = {
-    currentStation: 0
+    currentStation: 0,
+    isAuthenticated: isAuthenticated(null)
   };
 
   setCurrentStation = currentStation => {
@@ -27,7 +25,7 @@ export default class App extends Component {
         <div id="myApp" className="App">
           <Router>
             <React.Suspense fallback={<Spinner />}>
-              <MainRouter />
+              <MainRouter setCurrentStation={this.setCurrentStation} />
             </React.Suspense>
           </Router>
         </div>

@@ -9,7 +9,7 @@ export default class MainApp extends Component {
       <div>
         <NavBar />
         <Body />
-        <PlayerBar />
+        <PlayerBar setCurrentStation={this.props.setCurrentStation} />
       </div>
     );
   }

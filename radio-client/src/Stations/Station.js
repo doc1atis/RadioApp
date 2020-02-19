@@ -8,7 +8,8 @@ const stations = [
     city: "New York",
     format: "Tropical Music",
     owner: "Spanish Broadcasting System",
-    area: "New York"
+    area: "New York",
+    id: 1
   },
   {
     src: "http://wbgo.streamguys.net/wbgo128",
@@ -18,7 +19,8 @@ const stations = [
     city: "Newark",
     format: "Jazz",
     owner: "Newark Public Radio",
-    area: "New York"
+    area: "New York",
+    id: 2
   },
   {
     src: "http://crystalout.surfernetwork.com:8001/WSOU_MP3",
@@ -28,7 +30,8 @@ const stations = [
     city: "South Orange",
     format: "Rock",
     owner: "Seton Hall University",
-    area: "New York Metropolitan Area"
+    area: "New York Metropolitan Area",
+    id: 3
   },
   {
     src: "http://peridot.streamguys.com:5350/iheartclassical",
@@ -38,7 +41,8 @@ const stations = [
     city: "Teaneck",
     format: "Public Broadcasting",
     owner: "Fairleigh Dickinson University",
-    area: "Teaneck"
+    area: "Teaneck",
+    id: 4
   },
   {
     src: "http://crystalout.surfernetwork.com:8001/WVIP_MP3",
@@ -48,7 +52,8 @@ const stations = [
     city: "New York",
     format: "Afro-Caribbean",
     owner: "Hudson-Westchester Radio, Inc",
-    area: "New York"
+    area: "New York",
+    id: 5
   }
 ];
 

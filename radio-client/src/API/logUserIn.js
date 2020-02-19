@@ -5,7 +5,6 @@ const logUserIn = async userInfo => {
     localStorage.setItem("token", response.data.token);
     return null;
   } catch (error) {
-    console.dir(error.response.status);
     if (error.response) {
       const { status } = error.response;
       // The request was made and the server responded with a status code

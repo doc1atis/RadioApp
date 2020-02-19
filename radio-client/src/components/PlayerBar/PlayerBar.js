@@ -22,6 +22,9 @@ export default class PlayerBar extends Component {
     isMuted: false,
     isLoading: false
   };
+  // func1(event) {
+  // func2(thisCurrent,thisContext,thisState,thisProps,thisSetState)
+  // }
   nextStation = () => {
     this.current++;
 
