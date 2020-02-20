@@ -1,7 +1,7 @@
 const stations = [
   {
     src:
-      "https://prod-3-87-205-9.wostreaming.net/sbsystems-wskqfmaac-imc1?session-id=c3b2a2d41111d0af4a195595e455416e&source=TuneIn",
+      "https://prod-34-83-29-205.wostreaming.net/sbsystems-wskqfmaac-imc1?session-id=fbce12af81a329017a221f6e265f3e4a&c_yob=1994&c_gender=m&source=TuneIn",
     freq: "97.9",
     title: "Le Mega",
     logo: "https://cdn-profiles.tunein.com/s22837/images/logoq.png?t=1",

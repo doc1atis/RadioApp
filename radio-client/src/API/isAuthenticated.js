@@ -1,5 +1,5 @@
 import decode from "jwt-decode";
-import { createBrowserHistory } from "history";
+// import { createBrowserHistory } from "history";
 function isAuthenticated(API) {
   const token = localStorage.getItem("token");
   if (token) {
@@ -11,7 +11,7 @@ function isAuthenticated(API) {
       if (API) {
         delete API.defaults.headers.common["authorization-x-token"];
       }
-      createBrowserHistory().push("/signin");
+      //   createBrowserHistory().push("/signin");
       return false;
     } else {
       if (API) {
@@ -20,7 +20,7 @@ function isAuthenticated(API) {
       return true;
     }
   } else {
-    createBrowserHistory().push("/signin");
+    // createBrowserHistory().push("/signin");
     return false;
   }
 }

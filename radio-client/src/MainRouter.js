@@ -14,7 +14,10 @@ export default class MainRouter extends Component {
             exact
             path="/player"
             render={() => (
-              <MainApp setCurrentStation={this.props.setCurrentStation} />
+              <MainApp
+                setCurrentStation={this.props.setCurrentStation}
+                setAuth={this.props.setAuth}
+              />
             )}
           />
         </Switch>

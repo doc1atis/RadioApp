@@ -7,7 +7,7 @@ export default class MainApp extends Component {
   render() {
     return (
       <div>
-        <NavBar />
+        <NavBar setAuth={this.props.setAuth} />
         <Body />
         <PlayerBar setCurrentStation={this.props.setCurrentStation} />
       </div>
