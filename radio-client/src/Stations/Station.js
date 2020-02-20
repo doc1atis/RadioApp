@@ -1,14 +1,15 @@
 const stations = [
   {
     src:
-      "https://prod-3-87-205-9.wostreaming.net/sbsystems-wskqfmaac-imc1?session-id=c3b2a2d41111d0af4a195595e455416e&source=TuneIn",
+      "https://prod-34-83-29-205.wostreaming.net/sbsystems-wskqfmaac-imc1?session-id=fbce12af81a329017a221f6e265f3e4a&c_yob=1994&c_gender=m&source=TuneIn",
     freq: "97.9",
     title: "Le Mega",
     logo: "https://cdn-profiles.tunein.com/s22837/images/logoq.png?t=1",
     city: "New York",
     format: "Tropical Music",
     owner: "Spanish Broadcasting System",
-    area: "New York"
+    area: "New York",
+    id: 1
   },
   {
     src: "http://wbgo.streamguys.net/wbgo128",
@@ -18,7 +19,8 @@ const stations = [
     city: "Newark",
     format: "Jazz",
     owner: "Newark Public Radio",
-    area: "New York"
+    area: "New York",
+    id: 2
   },
   {
     src: "http://crystalout.surfernetwork.com:8001/WSOU_MP3",
@@ -28,7 +30,8 @@ const stations = [
     city: "South Orange",
     format: "Rock",
     owner: "Seton Hall University",
-    area: "New York Metropolitan Area"
+    area: "New York Metropolitan Area",
+    id: 3
   },
   {
     src: "http://peridot.streamguys.com:5350/iheartclassical",
@@ -38,7 +41,8 @@ const stations = [
     city: "Teaneck",
     format: "Public Broadcasting",
     owner: "Fairleigh Dickinson University",
-    area: "Teaneck"
+    area: "Teaneck",
+    id: 4
   },
   {
     src: "http://crystalout.surfernetwork.com:8001/WVIP_MP3",
@@ -48,7 +52,8 @@ const stations = [
     city: "New York",
     format: "Afro-Caribbean",
     owner: "Hudson-Westchester Radio, Inc",
-    area: "New York"
+    area: "New York",
+    id: 5
   }
 ];
 

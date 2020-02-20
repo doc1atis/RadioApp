@@ -2,10 +2,8 @@ import React, { Component } from "react";
 import ReactModal from "react-modal";
 import logo from "./appLogoFaded.jpg";
 import NavBarButton from "../NavBarButton/NavBarButton";
-import NavInput from "../NavBarInput/NavBarInput";
 import NavBarInput from "../NavBarInput/NavBarInput";
-import signUpApi from "../../API/signUpApi";
-
+import registerUser from "../../API/registerUser";
 export default class SignUp extends Component {
   state = {
     error: false,
@@ -42,11 +40,14 @@ export default class SignUp extends Component {
       email: document.querySelector(`#emailSignup`).value,
       password: document.querySelector(`#password1Signup`).value
     };
-    const newUser = await signUpApi(data);
-    console.log(newUser);
-    this.setState({
-      success: true
-    });
+    const result = await registerUser(data);
+    if (result.registered) {
+      this.setState({
+        success: true
+      });
+    } else {
+      this.setState({ errorMessage: [result.message], error: true });
+    }
   };
 
   closeError = () => {
@@ -94,7 +95,7 @@ export default class SignUp extends Component {
             style={styles.success}
             hidden={this.state.success ? false : true}
           >
-            <p>User created successfully! Please sign in...</p>
+            <p>User created successfully! Please log in...</p>
             <button type="button" onClick={this.props.closeModal}>
               Close
             </button>

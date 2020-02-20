@@ -10,7 +10,16 @@ export default class MainRouter extends Component {
       <>
         <Switch>
           <Route exact path="/" component={Landing} />
-          <Route exact path="/player" component={MainApp} />
+          <Route
+            exact
+            path="/player"
+            render={() => (
+              <MainApp
+                setCurrentStation={this.props.setCurrentStation}
+                setAuth={this.props.setAuth}
+              />
+            )}
+          />
         </Switch>
       </>
     );

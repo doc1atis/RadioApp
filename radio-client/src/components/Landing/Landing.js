@@ -14,7 +14,7 @@ export default class Landing extends Component {
         ></link>
         <div style={styles.main}>
           <div style={styles.contentSection}>
-            <NavLink to="/player" active>
+            <NavLink to="/player" active="true">
               <img
                 src={appLogo}
                 style={styles.logo}

@@ -1,33 +1,38 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-import PlayerBar from "./components/PlayerBar/PlayerBar";
 import allStations from "./Stations/Station";
-import NavBar from "./components/NavBar/NavBar";
-import Body from "./components/Body/Body";
 import Context from "./Context/Context";
 import MainRouter from "./MainRouter";
 import Spinner from "./components/Spinner/Spinner";
-
+import isAuthenticated from "./API/isAuthenticated";
 export default class App extends Component {
   state = {
-    currentStation: 0
+    currentStation: 0,
+    isAuthenticated: isAuthenticated(null)
   };
 
   setCurrentStation = currentStation => {
     this.setState({ currentStation });
+  };
+  setAuth = () => {
+    this.setState({ isAuthenticated: isAuthenticated(null) });
   };
   render() {
     return (
       <Context.Provider
         value={{
           currentStation: this.state.currentStation,
-          stations: allStations
+          stations: allStations,
+          isAuth: this.state.isAuthenticated
         }}
       >
         <div id="myApp" className="App">
           <Router>
             <React.Suspense fallback={<Spinner />}>
-              <MainRouter />
+              <MainRouter
+                setCurrentStation={this.setCurrentStation}
+                setAuth={this.setAuth}
+              />
             </React.Suspense>
           </Router>
         </div>

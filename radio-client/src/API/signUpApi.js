@@ -1,12 +1,12 @@
-import apiNoToken from "./apiNoToken";
+// import apiNoToken from "./apiNoToken";
 
-const signUpApi = async data => {
-  try {
-    const success = await apiNoToken.post("/users/signup", data);
-    return success;
-  } catch (err) {
-    return err;
-  }
-};
+// const signUpApi = async data => {
+//   try {
+//     const success = await apiNoToken.post("/users/signup", data);
+//     return success;
+//   } catch (err) {
+//     return err;
+//   }
+// };
 
-export default signUpApi;
+// export default signUpApi;

@@ -22,6 +22,7 @@ export default class PlayerBar extends Component {
     isMuted: false,
     isLoading: false
   };
+
   nextStation = () => {
     this.current++;
 
@@ -62,7 +63,7 @@ export default class PlayerBar extends Component {
         isLoading: true
       });
     } else if (this.current < 0 && this.state.isPlaying) {
-      this.current = stations.length - 1;
+      this.current = this.context.stations.length - 1;
       this.props.setCurrentStation(this.current);
       this.setState({
         currentStation: this.current,
@@ -146,30 +147,31 @@ export default class PlayerBar extends Component {
           {this.state.isMuted ? (
             <>
               <img
-                src={unmuteButton}
-                onClick={this.muteAndUnmuteRadio}
-                style={styles.buttonImg}
-                alt="Unmute radio button"
-              />
-            </>
-          ) : (
-            <>
-              <img
                 src={muteButton}
                 onClick={this.muteAndUnmuteRadio}
                 style={styles.buttonImg}
                 alt="Mute radio button"
               />
             </>
+          ) : (
+            <>
+              <img
+                src={unmuteButton}
+                onClick={this.muteAndUnmuteRadio}
+                style={styles.buttonImg}
+                alt="Unmute radio button"
+              />
+            </>
           )}
 
-          {/* Favorite Button Display */}
-          <img
-            src={favoriteAdd}
-            style={styles.buttonImg}
-            alt="Herat button that adds station to favorite list"
-            onClick={this.addStationToFavorites}
-          />
+          {this.context.isAuth ? (
+            <img
+              src={favoriteAdd}
+              style={styles.buttonImg}
+              alt="Herat button that adds station to favorite list"
+              onClick={this.addStationToFavorites}
+            />
+          ) : null}
         </div>
       </div>
     );

@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import appLogo from "./appLogo.jpg";
 import logoText from "./logoText.png";
 import NavBarInput from "../NavBarInput/NavBarInput";
@@ -6,6 +8,8 @@ import logUserIn from "../../API/logUserIn";
 import NavBarButton from "../NavBarButton/NavBarButton";
 import SignUp from "../SignUp/SignUp";
 import "../../App.css";
+import isAuthenticated from "../../API/isAuthenticated";
+import Context from "../../Context/Context";
 const styles = {
   main: {
     height: "14vh",
@@ -58,7 +62,13 @@ const styles = {
   }
 };
 export default class NavBar extends Component {
-  state = { errorMessage: null, showSignUp: true };
+  static contextType = Context;
+  state = {
+    errorMessage: null,
+    showSignUp: false,
+    isAuth: isAuthenticated(null)
+  };
+
   mouseDown = event => {};
   mouseUp = event => {
     event.target.style.boxShadow = "4px 4px gray";
@@ -67,9 +77,23 @@ export default class NavBar extends Component {
     event.preventDefault();
     const username = event.target.elements[0].value;
     const password = event.target.elements[1].value;
-    const errorMessage = logUserIn({ username, password });
+    // this causes the delay when logIn, because of the request
+    const errorMessage = await logUserIn({
+      username,
+      password
+    });
     if (errorMessage) {
+      toast.configure({ autoClose: 2000, position: "top-center" });
+      toast(errorMessage, { type: "error" });
       this.setState({ errorMessage });
+    } else {
+      toast.configure({ autoClose: 2000, position: "top-center" });
+      toast("login successfully", { type: "success" });
+      this.setState({
+        isAuth: isAuthenticated(null)
+      });
+
+      this.props.setAuth();
     }
   };
 
@@ -78,13 +102,19 @@ export default class NavBar extends Component {
       showSignUp: !this.state.showSignUp
     });
   };
+  logUserOut = () => {
+    // this function is faster because there is no request
+    localStorage.removeItem("token");
+    this.setState({ isAuth: isAuthenticated(null) });
+    this.props.setAuth();
+  };
   render() {
     return (
       <>
         <link
           href="https://fonts.googleapis.com/css?family=Geostar+Fill&display=swap"
           rel="stylesheet"
-        ></link>
+        />
         <div id="modals">
           <SignUp open={this.state.showSignUp} closeModal={this.showModal} />
         </div>
@@ -102,39 +132,52 @@ export default class NavBar extends Component {
             />
           </div>
           <form onSubmit={this.onFormSubmit} style={styles.rightSection}>
-            <NavBarInput
-              inputType="text"
-              inputId="username"
-              inputName="username"
-              inputPlaceHolder="Username"
-              errorMessage={this.state.errorMessage}
-              inputStyle={styles.input}
-              buttonMargin="0 5vw 0 0"
-            />
-            <NavBarInput
-              inputType="password"
-              inputId="password"
-              inputName="password"
-              inputPlaceHolder="Password"
-              errorMessage={this.state.errorMessage}
-              inputStyle={styles.input}
-              buttonMargin="0 5vw 0 0"
-            />
-            <NavBarButton
-              buttonType="submit"
-              buttonID="submitButton"
-              buttonName="submitButton"
-              buttonStyle={styles.button}
-              buttonText="Submit"
-            />
-            <NavBarButton
-              buttonType="button"
-              buttonID="signUpButton"
-              buttonName="signUpButton"
-              buttonStyle={styles.button}
-              buttonText="Sign Up"
-              clickFunction={this.showModal}
-            />
+            {!this.state.isAuth ? (
+              <>
+                <NavBarInput
+                  inputType="text"
+                  inputId="username"
+                  inputName="username"
+                  inputPlaceHolder="Username"
+                  errorMessage={this.state.errorMessage}
+                  inputStyle={styles.input}
+                  buttonMargin="0 5vw 0 0"
+                />
+                <NavBarInput
+                  inputType="password"
+                  inputId="password"
+                  inputName="password"
+                  inputPlaceHolder="Password"
+                  errorMessage={this.state.errorMessage}
+                  inputStyle={styles.input}
+                  buttonMargin="0 5vw 0 0"
+                />
+                <NavBarButton
+                  buttonType="submit"
+                  buttonID="submitButton"
+                  buttonName="submitButton"
+                  buttonStyle={styles.button}
+                  buttonText="LogIn"
+                />
+                <NavBarButton
+                  buttonType="button"
+                  buttonID="signUpButton"
+                  buttonName="signUpButton"
+                  buttonStyle={styles.button}
+                  buttonText="Sign Up"
+                  clickFunction={this.showModal}
+                />
+              </>
+            ) : (
+              <NavBarButton
+                buttonType="button"
+                buttonID="logOut"
+                buttonName="logOutButton"
+                buttonStyle={styles.button}
+                buttonText="LogOut"
+                clickFunction={this.logUserOut}
+              />
+            )}
           </form>
         </div>
       </>
