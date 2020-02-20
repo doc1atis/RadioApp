@@ -82,8 +82,8 @@ export default class SignUp extends Component {
             hidden={this.state.error ? false : true}
             id="errorDiv"
           >
-            {this.state.errorMessage.map(item => {
-              return <p>{item}</p>;
+            {this.state.errorMessage.map((item, i) => {
+              return <p key={i}>{item}</p>;
             })}
             <button type="button" onClick={this.closeError}>
               Close

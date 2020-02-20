@@ -35,7 +35,7 @@ const stations = [
   },
   {
     src: "http://peridot.streamguys.com:5350/iheartclassical",
-    freq: "",
+    freq: "92.9",
     title: "WFDU-HD Classics",
     logo: "https://cdn-radiotime-logos.tunein.com/s253655q.png",
     city: "Teaneck",

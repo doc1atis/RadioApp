@@ -17,10 +17,8 @@ const registerUser = async userInfo => {
     } else if (usernameExists) {
       message = "user already exists";
     }
-    console.dir(error.response);
-    console.log(error.response.data.error.errmsg.includes("email"));
 
-    return { registered: false, message };
+    return { registered: error.response.data.success, message };
   }
 };
 export default registerUser;
